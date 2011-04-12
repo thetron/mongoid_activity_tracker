@@ -42,7 +42,6 @@ module MongoidActivityTracker
         resource.to_s
       end
 
-      private
       def track_activity
         MongoidActivityTracker::UserActivity.create!(
           :author => current_user,
