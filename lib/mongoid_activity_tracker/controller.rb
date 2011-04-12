@@ -42,11 +42,19 @@ module MongoidActivityTracker
         resource.to_s
       end
 
+      def past_tense_action_name_for(action)
+        if action[-1] == "e"
+          action + "d"
+        else
+          action + "ed"
+        end
+      end
+
       def track_activity
         MongoidActivityTracker::UserActivity.create!(
           :author => current_user,
           :description => resource_description,
-          :action => self.action_name,
+          :action => past_tense_action_name_for(self.action_name),
           :resource_name => resource_name,
           :tags => activity_scopes.join(','),
           :resource_url => resource_url
