@@ -1,6 +1,6 @@
 module MongoidActivityTracker
   class Engine < Rails::Engine
-    #ActionController::Base.helper(MongoidActivityTracker::Helpers::ActivityHelper)
+    ActionController::Base.helper(MongoidActivityTracker::Helpers::ActivityHelper)
   end
 end
 

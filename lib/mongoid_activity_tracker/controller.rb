@@ -22,11 +22,11 @@ module MongoidActivityTracker
         "Unknown user"
       end
 
-      def resource_url(model)
+      def resource_url
         nil
       end
 
-      def activity_scopes(model)
+      def activity_scopes
         []
       end
 
@@ -34,15 +34,23 @@ module MongoidActivityTracker
         "Unknown document"
       end
 
+      def resource_name
+        resource.class.to_s.humanize
+      end
+
+      def resource_description
+        resource.to_s
+      end
+
       private
       def track_activity
         MongoidActivityTracker::UserActivity.create!(
           :author => current_user,
-          :description => resource.to_s,
+          :description => resource_description,
           :action => self.action_name,
-          :model_name => resource.class.to_s.humanize,
-          :tags => activity_scopes(resource).join(','),
-          :resource_url => resource_url(resource)
+          :resource_name => resource_name,
+          :tags => activity_scopes.join(','),
+          :resource_url => resource_url
         )
       end
     end

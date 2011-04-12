@@ -9,7 +9,7 @@ module MongoidActivityTracker
     field :author
     field :description
     field :action
-    field :model_name
+    field :resource_name
 
     field :resource_url
   end
