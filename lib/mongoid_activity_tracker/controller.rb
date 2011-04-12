@@ -35,7 +35,7 @@ module MongoidActivityTracker
       end
 
       def resource_name
-        resource.class.to_s.humanize
+        "the #{resource.class.to_s.humanize}"
       end
 
       def resource_description
@@ -43,7 +43,7 @@ module MongoidActivityTracker
       end
 
       def past_tense_action_name_for(action)
-        if action[-1] == "e"
+        if action[-1..-1] == "e"
           action + "d"
         else
           action + "ed"
