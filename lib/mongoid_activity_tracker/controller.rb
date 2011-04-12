@@ -22,10 +22,6 @@ module MongoidActivityTracker
         "Unknown user"
       end
 
-      def resource_url
-        nil
-      end
-
       def activity_scopes
         []
       end
@@ -57,7 +53,7 @@ module MongoidActivityTracker
           :action => past_tense_action_name_for(self.action_name),
           :resource_name => resource_name,
           :tags => activity_scopes.join(','),
-          :resource_url => resource_url
+          :resource_url => self.respond_to?(:resource_url) ? self.send(:resource_url) : nil
         )
       end
     end
