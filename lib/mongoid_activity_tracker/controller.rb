@@ -18,6 +18,10 @@ module MongoidActivityTracker
       include ActiveSupport::Inflector
 
       protected
+      def skip_tracking
+        @skip_mongoid_activity_tracker = true
+      end
+
       def current_user
         "Unknown user"
       end
@@ -47,14 +51,16 @@ module MongoidActivityTracker
       end
 
       def track_activity
-        MongoidActivityTracker::UserActivity.create!(
-          :author => current_user,
-          :description => resource_description,
-          :action => past_tense_action_name_for(self.action_name),
-          :resource_name => resource_name,
-          :tags => activity_scopes.join(','),
-          :resource_url => self.respond_to?(:resource_url) ? self.send(:resource_url) : nil
-        )
+        unless @skip_mongoid_activity_tracker
+          MongoidActivityTracker::UserActivity.create!(
+            :author => current_user,
+            :description => resource_description,
+            :action => past_tense_action_name_for(self.action_name),
+            :resource_name => resource_name,
+            :tags => activity_scopes.join(','),
+            :resource_url => self.respond_to?(:resource_url) ? self.send(:resource_url) : nil
+          )
+        end
       end
     end
   end
