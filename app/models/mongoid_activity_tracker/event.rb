@@ -1,7 +1,7 @@
 require 'mongoid_taggable'
 
 module MongoidActivityTracker
-  class UserActivity
+  class Event
     include Mongoid::Document
     include Mongoid::Timestamps
 

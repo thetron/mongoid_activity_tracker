@@ -52,7 +52,7 @@ module MongoidActivityTracker
 
       def track_activity
         unless @skip_mongoid_activity_tracker
-          MongoidActivityTracker::UserActivity.create!(
+          MongoidActivityTracker::Event.create!(
             :author => current_user,
             :description => resource_description,
             :action => past_tense_action_name_for(self.action_name),

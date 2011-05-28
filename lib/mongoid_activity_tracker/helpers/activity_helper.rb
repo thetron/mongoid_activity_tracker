@@ -12,7 +12,7 @@ module MongoidActivityTracker
       # scope - array of scopes to filter by
       def activity_feed(options = {})
         options[:limit] ||= 50
-        criteria = MongoidActivityTracker::UserActivity.desc :created_at
+        criteria = MongoidActivityTracker::Event.desc :created_at
         if options[:scopes]
           criteria.any_in :tags_array => options[:scopes]
         end
